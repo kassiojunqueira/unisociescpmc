@@ -6,7 +6,7 @@ exports.up = function(knex) {
         table.string('nome').notNullable();
         table.string('email').notNullable();
         table.string('telefone').notNullable();
-    });
+    };
 };
 
 exports.down = function(knex) {
