@@ -1,11 +1,11 @@
 const express = require('express');
-
+const crypto = require('crypto');
 const routes = express.Router();
 const connection = require('./database/connection');
 
 routes.post('/usuario/', async (request, response) => {
-    const {id, nome, email, telefone} = request.body;
-
+    const { nome, email, telefone} = request.body;
+    const id = crypto.randomBytes(4).toString('HEX');
     await connection('usuario').insert(
         {
             id,
@@ -14,8 +14,7 @@ routes.post('/usuario/', async (request, response) => {
             telefone
         }
     )
-
-    return response.send('Usuário ' + id + ' inserido com sucesso');
+    return response.json({id});
 });
 
 routes.get('/usuario/', async (request, response) => {
@@ -25,5 +24,3 @@ routes.get('/usuario/', async (request, response) => {
 });
 
 module.exports = routes;
-
-
